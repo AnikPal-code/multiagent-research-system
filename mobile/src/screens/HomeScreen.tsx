@@ -15,9 +15,13 @@ import StepTracker, { STEP_DEFS, StepStatus } from '../components/StepTracker';
 import LogCard from '../components/LogCard';
 import { runResearch, StepKey } from '../api';
 
-// Point this at your FastAPI server. For a physical phone on the same wifi,
-// swap 127.0.0.1 for your machine's LAN IP (e.g. http://192.168.1.42:8000).
-const API_BASE_URL = 'http://127.0.0.1:8000';
+import Constants from 'expo-constants';
+
+// Reads from app.config.js's `extra.apiUrl` (which itself reads
+// EXPO_PUBLIC_API_URL at build time) — this path is reliable across
+// Expo web export versions, unlike relying on process.env directly
+// in app code.
+const API_BASE_URL = Constants.expoConfig?.extra?.apiUrl || 'http://127.0.0.1:8000';
 
 const initialStatuses: Record<StepKey, StepStatus> = {
   search: 'idle',
