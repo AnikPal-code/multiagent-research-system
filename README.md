@@ -7,7 +7,6 @@ A multi-agent AI research assistant. Four agents work through a topic in sequenc
 
 > Note: the backend is on a free hosting tier and sleeps after 15 minutes of inactivity — the first request may take 30–60 seconds to wake it up.
 
-![ResearchFlow AI screenshot](docs/screenshot.png)
 
 ---
 
@@ -38,7 +37,6 @@ Progress streams live via **Server-Sent Events**, so the UI lights up each stage
 - **Scraping:** `requests` + `BeautifulSoup`
 - **Hosting:** Render (backend) + Vercel (frontend)
 
-Full technical write-up: [`PROJECT_DOCUMENTATION.md`](./PROJECT_DOCUMENTATION.md)
 
 ---
 
