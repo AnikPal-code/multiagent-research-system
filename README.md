@@ -1,7 +1,7 @@
 # 🔎 ResearchFlow AI
 
 A multi-agent AI research assistant. Four agents work through a topic in sequence — **search → read → write → critique** — with live progress streamed to a web and mobile UI built from a single codebase.
-
+For Detailed Review: https://deepwiki.com/AnikPal-code/multiagent-research-system
 **🌐 Live demo:** [multiagent-research-system-t2yo-beta.vercel.app](https://multiagent-research-system-t2yo-beta.vercel.app)
 **⚙️ Live API:** [multiagent-research-system-8jcf.onrender.com/health](https://multiagent-research-system-8jcf.onrender.com/health)
 ** Architecture:** [Multi-Agent Research AI architecture.png]
