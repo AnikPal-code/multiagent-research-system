@@ -1,6 +1,0 @@
-@"
-node_modules/
-.expo/
-dist/
-.env
-"@ | Out-File -FilePath .gitignore -Encoding utf8
