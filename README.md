@@ -4,6 +4,7 @@ A multi-agent AI research assistant. Four agents work through a topic in sequenc
 
 **🌐 Live demo:** [multiagent-research-system-t2yo-beta.vercel.app](https://multiagent-research-system-t2yo-beta.vercel.app)
 **⚙️ Live API:** [multiagent-research-system-8jcf.onrender.com/health](https://multiagent-research-system-8jcf.onrender.com/health)
+** Architecture:** [Multi-Agent Research AI architecture.png]
 
 > Note: the backend is on a free hosting tier and sleeps after 15 minutes of inactivity — the first request may take 30–60 seconds to wake it up.
 
