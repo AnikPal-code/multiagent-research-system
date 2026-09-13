@@ -5,6 +5,7 @@ mobile/node_modules/
 mobile/.expo/
 mobile/dist/
 mobile/.env
+mobile/web-build/
 
 # Test files
 test_gemini.py
