@@ -3,7 +3,6 @@
   "outputDirectory": "web-build",
   "devCommand": "npm run web",
   "installCommand": "npm install",
-  "framework": "react",
   "rewrites": [
     {
       "source": "/(.*)",
