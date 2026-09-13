@@ -19,7 +19,7 @@ Then point the Expo app's API_BASE_URL at this server, e.g.
 import asyncio
 import json
 from typing import AsyncGenerator
-
+mistral_semaphore = asyncio.Semaphore(1)
 from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse

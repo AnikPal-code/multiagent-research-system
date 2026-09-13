@@ -5,3 +5,4 @@ langchain-mistralai
 python-dotenv
 requests
 beautifulsoup4
+ddgs

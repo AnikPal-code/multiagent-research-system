@@ -10,6 +10,7 @@ load_dotenv()
 llm = ChatMistralAI(
     model="mistral-small-latest",
     temperature=0.05, # we don't want creative answers
+    max_retries=5
 )
 
 # 1st agent

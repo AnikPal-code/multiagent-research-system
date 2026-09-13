@@ -1,74 +1,125 @@
-from agents import build_reader_agent , build_search_agent , writer_chain , critic_chain
+from agents import (
+    build_reader_agent,
+    build_search_agent,
+    writer_chain,
+    critic_chain,
+)
 
-def run_research_pipeline(topic : str) -> dict:
 
+def run_research_pipeline(topic: str) -> dict:
     state = {}
 
-    #search agent working 
-    print("\n"+" ="*50)
-    print("step 1 - search agent is working ...")
-    print("="*50)
+    # ==========================================
+    # STEP 1 - SEARCH AGENT
+    # ==========================================
+
+    print("\n" + "=" * 50)
+    print("STEP 1 - Search agent is working...")
+    print("=" * 50)
 
     search_agent = build_search_agent()
+
     search_result = search_agent.invoke({
-        "messages" : [("user", f"Find recent, reliable and detailed information about: {topic}")]
+        "messages": [
+            (
+                "user",
+                f"Find recent, reliable and detailed information about: {topic}"
+            )
+        ]
     })
-    state["search_results"] = search_result['messages'][-1].content
 
-    print("\n search result ",state['search_results'])
+    state["search_results"] = search_result["messages"][-1].content
 
-    #step 2 - reader agent 
-    print("\n"+" ="*50)
-    print("step 2 - Reader agent is scraping top resources ...")
-    print("="*50)
+    print("\nSearch Result:")
+    print(state["search_results"])
+
+    # ==========================================
+    # STEP 2 - READER AGENT
+    # ==========================================
+
+    print("\n" + "=" * 50)
+    print("STEP 2 - Reader agent is scraping top resources...")
+    print("=" * 50)
 
     reader_agent = build_reader_agent()
+
     reader_result = reader_agent.invoke({
-        "messages": [("user",
-            f"Based on the following search results about '{topic}', "
-            f"pick the most relevant URL and scrape it for deeper content.\n\n"
-            f"Search Results:\n{state['search_results'][:800]}"
-        )]
+        "messages": [
+            (
+                "user",
+                f"""
+You are a research reader.
+
+Topic:
+{topic}
+
+Below are the web search results:
+
+{state["search_results"]}
+
+Your task:
+
+1. Identify the most relevant and reliable URL.
+2. Use the scrape_url tool on that URL.
+3. Return the useful factual information obtained from the webpage.
+4. Do not invent URLs.
+5. If the first URL cannot be scraped, try another URL from the search results.
+"""
+            )
+        ]
     })
 
-    state['scraped_content'] = reader_result['messages'][-1].content
+    state["scraped_content"] = reader_result["messages"][-1].content
 
-    print("\nscraped content: \n", state['scraped_content'])
+    print("\nScraped Content:")
+    print(state["scraped_content"])
 
-    #step 3 - writer chain 
+    # ==========================================
+    # STEP 3 - WRITER
+    # ==========================================
 
-    print("\n"+" ="*50)
-    print("step 3 - Writer is drafting the report ...")
-    print("="*50)
+    print("\n" + "=" * 50)
+    print("STEP 3 - Writer is drafting the report...")
+    print("=" * 50)
 
     research_combined = (
-        f"SEARCH RESULTS : \n {state['search_results']} \n\n"
-        f"DETAILED SCRAPED CONTENT : \n {state['scraped_content']}"
+        f"SEARCH RESULTS:\n"
+        f"{state['search_results']}\n\n"
+        f"DETAILED SCRAPED CONTENT:\n"
+        f"{state['scraped_content']}"
     )
 
     state["report"] = writer_chain.invoke({
-        "topic" : topic,
-        "research" : research_combined
+        "topic": topic,
+        "research": research_combined
     })
 
-    print("\n Final Report\n",state['report'])
+    print("\nFinal Report:")
+    print(state["report"])
 
-    #critic report 
+    # ==========================================
+    # STEP 4 - CRITIC
+    # ==========================================
 
-    print("\n"+" ="*50)
-    print("step 4 - critic is reviewing the report ")
-    print("="*50)
+    print("\n" + "=" * 50)
+    print("STEP 4 - Critic is reviewing the report...")
+    print("=" * 50)
 
     state["feedback"] = critic_chain.invoke({
-        "report":state['report']
+        "report": state["report"]
     })
 
-    print("\n critic report \n", state['feedback'])
+    print("\nCritic Report:")
+    print(state["feedback"])
 
     return state
 
 
+# ==========================================
+# RUN DIRECTLY
+# ==========================================
 
 if __name__ == "__main__":
-    topic = input("\n Enter a research topic : ")
+    topic = input("\nEnter a research topic: ")
+
     run_research_pipeline(topic)
